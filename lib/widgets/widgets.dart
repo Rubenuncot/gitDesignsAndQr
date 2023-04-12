@@ -1,4 +1,6 @@
 
+export 'package:qr_sql/widgets/scan_tiles.dart';
+
 export 'package:qr_sql/widgets/single_card.dart';
 
 export 'package:qr_sql/widgets/page_title.dart';

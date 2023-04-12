@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:qr_sql/models/scan_model.dart';
 import 'package:qr_sql/providers/db_provider.dart';
 
 class ScanProvider extends ChangeNotifier{
-  List<ScanModel?> scans = [];
+  List<ScanModel> scans = [];
   String tipoSelecionado = "http";
 
   Future<ScanModel> nuevoScan(String valor) async{

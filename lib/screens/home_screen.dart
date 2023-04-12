@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_sql/providers/scan_provider.dart';
 import 'package:qr_sql/providers/ui_provider.dart';
 //import 'package:qr_sql/screens/prueba_bar_screen.dart';
 import 'package:qr_sql/screens/screens.dart';
@@ -44,7 +45,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
         title: const SafeArea(child: Text("Historial")),
         actions: [
           IconButton(
-            onPressed: (){}, 
+            onPressed: (){
+              final scanProvider = Provider.of<ScanProvider>(context, listen: false);
+              scanProvider.borrarScans();
+            },
             icon: const Icon(Icons.delete)
           )
         ],
@@ -64,14 +68,21 @@ class _HomePageBody extends StatelessWidget {
     //Obtener el currentIndex
     final uiPorovider = Provider.of<UiProvider>(context);
 
+    final scanProvider = Provider.of<ScanProvider>(context, listen: false);
+
 
     //Cambiar el indice para mostrar la página correspondiente
     final currentIndex = uiPorovider.selecctedMenuOption;
     
     switch(currentIndex){ 
-      case 1: return const MapsScreen();
-      case 0: return const DetailsScreen();
-      default: return const MapsScreen();
+      case 1:
+        scanProvider.cargarScansPorTipo('geo');
+        return const MapsScreen();
+      case 0:
+        scanProvider.cargarScansPorTipo('http');
+        return const DetailsScreen();
+      default:
+        return const MapsScreen();
     }
   }
 }

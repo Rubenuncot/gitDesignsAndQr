@@ -55,30 +55,31 @@ class DBProvider{
 
     //Insertar a la base de datos
     final res = db!.rawInsert('''
-      INSERT INTO Scans(id, tipo, valor) VALUES($id, '$tipo', '$valor') 
+      INSERT INTO Scan(id, tipo, valor) VALUES($id, '$tipo', '$valor') 
     ''');
 
     return res;
   }
 
-  Future newScan(ScanModel newScan) async {
+  Future<int> newScan(ScanModel newScan) async {
     final db = await database;
     final res = db!.insert('Scan', newScan.toJson());
+    return res;
   }
 
-  Future<ScanModel?> getScanById(int id) async {
+  Future<ScanModel> getScanById(int id) async {
     final db = await database;
     final res = await db!.query('Scan', where: 'id = ?', whereArgs: [id]);
 
     return ScanModel.fromJson(res.first);
   }
-  Future<List<ScanModel?>> getAllScans() async {
+  Future<List<ScanModel>> getAllScans() async {
     final db = await database;
     final res = await db!.query('Scan');
 
     return res.map((e) => ScanModel.fromJson(e)).toList();
   }
-  Future<List<ScanModel?>> getScanByTipo( String tipo) async {
+  Future<List<ScanModel>> getScanByTipo( String tipo) async {
     final db = await database;
     final res = await db!.rawQuery('''
       SELECT * FROM Scan WHERE tipo = '$tipo'

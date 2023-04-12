@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_sql/providers/scan_provider.dart';
 import 'package:qr_sql/providers/ui_provider.dart';
 import 'package:qr_sql/screens/screens.dart';
 import 'package:qr_sql/theme/theme.dart';
@@ -14,7 +15,8 @@ class MainApp extends StatelessWidget {
     return MultiProvider(
 
       providers: [
-        ChangeNotifierProvider(create: (_) => UiProvider(),)
+        ChangeNotifierProvider(create: (_) => UiProvider(),),
+        ChangeNotifierProvider(create: (_) => ScanProvider(),)
       ],
 
       child: MaterialApp(
